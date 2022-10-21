@@ -38,6 +38,8 @@ AC_CHECK_LIB(socket, socket)
 AC_CHECK_LIB(nsl, gethostbyname)
 AC_CHECK_LIB(dl, dlopen, [ LIBDL="-ldl" 
 			   LIBS="$LIBS -ldl" ],,)
+PKG_PROG_PKG_CONFIG
+PKG_CHECK_MODULES(TIRPC, libtirpc)
 AC_SUBST(LIBDL)
 dnl ugly ugly hack	
 AC_CHECK_LIB(c, err, [ ERRO="" ], [ ERRO="err.o" ],)

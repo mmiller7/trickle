@@ -17,18 +17,22 @@ man_MANS = trickle.1 trickled.8 trickled.conf.5
 
 bin_PROGRAMS = trickle trickled tricklectl
 
-trickle_DEPENDENCIES = @ERRO@ $(LIBOBJS)
+trickle_DEPENDENCIES = @ERRO@ @LIBOBJS@
 trickle_SOURCES = trickle.c util.c getopt.c
-trickle_LDADD = @ERRO@ $(LIBOBJS)
+trickle_LDADD = @ERRO@ @LIBOBJS@
 
 trickled_SOURCES = trickled.c atomicio.c print.c bwstat.c client.c conf.c \
                    util.c cleanup.c getopt.c xdr.c
-trickled_LDADD = @EVENTLIB@ $(LIBOBJS)
+trickled_LDADD = @EVENTLIB@ @LIBOBJS@ @TIRPC_LIBS@
 
 tricklectl_SOURCES = tricklectl.c trickledu.c atomicio.c xdr.c
-tricklectl_LDADD = @ERRO@ $(LIBOBJS)
+tricklectl_LDADD = @ERRO@ @LIBOBJS@ @TIRPC_LIBS@
 
-AM_CFLAGS = -Wall -Icompat @EVENTINC@
+DEFAULT_INCLUDES = @TIRPC_CFLAGS@
+
+AM_CFLAGS :=
+
+AM_CFLAGS += -Wall -Icompat @EVENTINC@
 
 overloaddir = $(libdir)
 overload_DATA = libtrickle.so
@@ -43,5 +47,3 @@ EXTRA_DIST = LICENSE README strlcat.c strlcpy.c err.c Makefile.am.inc	\
 	     trickled.conf.5 trickle-overload.c trickledu.c cleanup.h	\
 	     conf.h message.h trickle.h util.h bwstat.h client.h	\
 	     print.h trickledu.h xdr.h
-
-ACLOCAL_AMFLAGS = -I m4
